@@ -1,8 +1,6 @@
-## Welcome to GitHub Pages
+## Comptes-rendus meetings avec directeur de mémoire:
 
-You can use the [editor on GitHub](https://github.com/rpalmeri/memoire/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Réunion du 10/11/2020 :
 
 ### Markdown
 
