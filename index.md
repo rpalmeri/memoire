@@ -18,5 +18,6 @@
 
 ### 13/11/2020 : 
 
-* Lecture du document : ""
-* Début du travail de compréhension de la formule suivante : 
+* Recherche de document scientifique sur le Machine Learning
+* Début de lecture du livre suivant : **Machine Learning - A Practical Approach on the Statistical Learning Theory** de **Rodrigo Fernandes de MelloMoacir Antonelli Ponti**
+* Début du travail de compréhension sur la formule d'erreurs attendue d'une fonction de classification
