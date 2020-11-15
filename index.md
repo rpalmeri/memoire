@@ -21,3 +21,7 @@
 * Recherche de document scientifique sur le Machine Learning
 * Début de lecture du livre suivant : **Machine Learning - A Practical Approach on the Statistical Learning Theory** de **Rodrigo Fernandes de MelloMoacir Antonelli Ponti**
 * Début du travail de compréhension sur la formule d'erreurs attendue d'une fonction de classification
+
+### 15/11/2020 :
+
+* Visionnage du cours "Statistics 110" fourni par le directeur de mémoire (1 ère partie)
