@@ -24,4 +24,8 @@
 
 ### 15/11/2020 :
 
-* Visionnage du cours "Statistics 110" fourni par le directeur de mémoire (1 ère partie, 2 ème partie)
+* Visionnage du cours "Statistics 110" fourni par le directeur de mémoire (1 ère partie, 2 ème partie et 3 ème partie )
+
+### 17/11/2020 :
+
+* Visionnage du cours "Statistics 110" (4ème partie et 5 ème partie)
