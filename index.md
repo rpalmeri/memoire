@@ -29,3 +29,7 @@
 ### 17/11/2020 :
 
 * Visionnage du cours "Statistics 110" (4ème partie et 5 ème partie)
+
+### 18/11/2020 :
+
+* Visionnage du cours "Statistics 110" (6ème partie)
