@@ -33,3 +33,7 @@
 ### 18/11/2020 :
 
 * Visionnage du cours "Statistics 110" (6ème partie)
+
+### 19/01/2021 :
+
+* Visionnage du cours "Statistics 110" (7ème partie)
