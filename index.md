@@ -44,4 +44,4 @@
 
 ### 21/01/2021 :
 
-* Visionnage du cours "Statistics 110" (9ème partie)
+* Visionnage du cours "Statistics 110" (9ème partie et 10ème partie)
