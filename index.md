@@ -57,3 +57,7 @@
 ### 24/01/2021 :
 
 * Visionnage du cours "Statistics 110" (17ème partie, 18ème partie, 19ème partie et 20ème partie)
+
+### 24/01/2021 :
+
+* Visionnage du cours "Statistics 110" (21ème partie et 22ème partie)
