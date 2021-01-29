@@ -73,3 +73,7 @@
 ### 28/01/2021 :
 
 * Visionnage du cours "Statistics 110" (27ème partie et 28ème partie)
+
+### 29/01/2021 :
+
+* Visionnage du cours "Statistics 110" (29ème partie et 30ème partie)
