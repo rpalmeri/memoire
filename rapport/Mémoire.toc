@@ -1,0 +1,17 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Introduction}{3}%
+\contentsline {section}{\numberline {2}Apprentissage automatique ("Machine Learning")}{4}%
+\contentsline {subsection}{\numberline {2.1}Algorithme d'apprentissage}{4}%
+\contentsline {subsubsection}{\numberline {2.1.1}Apprentissage supervisés}{4}%
+\contentsline {subsubsection}{\numberline {2.1.2}Apprentissage non-supervisés}{5}%
+\contentsline {subsubsection}{\numberline {2.1.3}Apprentissage semi-supervisés et Apprentissage actif}{5}%
+\contentsline {subsubsection}{\numberline {2.1.4}Apprentissage par transfert et apprentissage multitâche}{5}%
+\contentsline {subsubsection}{\numberline {2.1.5}Apprentissage par renforcement}{5}%
+\contentsline {subsubsection}{\numberline {2.1.6}Exemples d'algorithmes}{5}%
+\contentsline {subsection}{\numberline {2.2}Données}{6}%
+\contentsline {subsubsection}{\numberline {2.2.1}Données d'apprentissage}{6}%
+\contentsline {subsubsection}{\numberline {2.2.2}Données de test}{6}%
+\contentsline {section}{\numberline {3}Le compromis Biais-Variance}{7}%
+\contentsline {section}{\numberline {4}Deep Learning}{9}%
+\contentsline {section}{\numberline {5}Simulation}{10}%
+\contentsline {section}{\numberline {6}Conclusion}{11}%
