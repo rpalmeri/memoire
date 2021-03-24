@@ -13,6 +13,8 @@
 4. Questions/réponses
   * Organisation concernant les meetings => décision à prendre lors du prochain meeting
 
+### Réunion du 26/03/2021 :
+
 
 ## Avancement de l'étudiant :
 
@@ -85,3 +87,7 @@
 ### 30/01/2021 :
 
 * Visionnage du cours "Statistics 110" (33ème partie et 34ème partie)
+
+### 24/03/2021 :
+
+* Ajout du rapport dans le repo
