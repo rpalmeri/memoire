@@ -4,7 +4,7 @@
 
 1. Prise de contact avec le directeur de mémoire
 2. Explication méthodologie de travail
-  * Avant de s'attquer au vif du sujet, apprendres les bases du Machine Learning
+  * Avant de s'attaquer au vif du sujet, apprendres les bases du Machine Learning
   * Etre capable d'expliquer les notions de bases et formules liées
   * Ensuite, approfondissement sur le "double descent phenomenon"
 3. Demande de création d'une page github pour permettre un suivi à tout moment
@@ -15,6 +15,10 @@
 
 ### Réunion du 26/03/2021 :
 
+1. Recadrage du point de vue de rédaction => Formalisation du Bias-Variance trade-off, preuve empirique de celui-ci
+2. Partage de lien pour des cours (en ligne) sur le ML
+3. Accès au cours de ML de l'UMons donné par le directeur de mémoire
+4. Pistes de recherches pour la recherche de code de simulations 
 
 ## Avancement de l'étudiant :
 
