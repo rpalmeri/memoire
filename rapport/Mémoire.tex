@@ -38,13 +38,13 @@
 \newpage
 
 \section{Introduction}
-Dans le cadre de notre Master en Sciences Informatiques en horaire décalé, il nous est demandé de réaliser un mémoire sur un sujet proposé par les enseignants de l'UMons de la section Sciences Informatiques. Mon choix de sujet c'est porté sur "Le phénomène de double descente au sein de l'Apprentissage Machine (\textit{'The double descent phenomenon in machine learning'})".\newline
+Dans le cadre de notre Master en Sciences Informatiques en horaire décalé, il nous est demandé de réaliser un mémoire sur un sujet proposé par les enseignants de l'UMons de la section Sciences Informatiques. Mon choix de sujet s'est porté sur "Le phénomène de double descente au sein de l'Apprentissage Machine (\textit{'The double descent phenomenon in machine learning'})".\newline
 
 Dans un premier temps, je vais présenter ce qu'est l'apprentissage Machine ainsi qu'expliquer brièvement les différentes sous-catégories existantes au sein de celui-ci. \newline
 
 Dans une deuxième partie, je vais expliquer les notions de biais et de variance, ainsi que le phénomène de compromis entre ces deux notions au sein de l'apprentissage machine. \newline
 
-Dans la troisième partie, je vais expliquer le fonctionnement du "Deep Learning" ainsi que le sujet d'étude principal de ce mémoire: le phénomène de double descente. \newline
+Dans la troisième partie, je vais démontrer mathématiquement le compromis biais-variance et expliquer cette démonstration plus en détails. \newline
 
 Dans la quatrième partie, à l'aide de simulations, nous montrerons l'effet de ce phénomène ainsi que son comportement en influençant sur différents paramètres de la simulation.\newline
 
@@ -131,18 +131,26 @@ La variance indique l'écart des résultats en fonction de l'ensemble de donnée
 
 \newpage
 
+\subsection{Démonstration mathématique}
+
 L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \newline
 
 \[ error_{total} = error_{generalization} + error_{training} + error_{irreductible} \]
 
-1. l'erreur de généralisation (\textit{'generalization error'}): cette erreur est la conséquence de la sélection d'un sous-ensemble que l'on considère comme étant représentatif. De par la sélection de ce sous-ensemble, on induit une possible erreur.\newline
+1. l'erreur de généralisation ou le biais (\textit{'generalization error'}): cette erreur est la conséquence de la sélection d'un sous-ensemble que l'on considère comme étant représentatif. De par la sélection de ce sous-ensemble, on induit une possible erreur.\newline
 
-2. l'erreur d'entrainement (\textit{'training error'}) : cette erreur est la conséquence de l'apprentissage, dans nos données sélectionnées pour l'apprentissage de la machine, on peut avoir des cas spécifiques qui ne se présentent que dans notre ensemble d'apprentissage. ce qui mènera le modèle à un 'biais d'apprentissage' et peut diminuer la précision de celui-ci lors de l'utilisation de données de test.\newline
+2. l'erreur d'entrainement ou la variance (\textit{'training error'}) : cette erreur est la conséquence de l'apprentissage, dans nos données sélectionnées pour l'apprentissage de la machine, on peut avoir des cas spécifiques qui ne se présentent que dans notre ensemble d'apprentissage. ce qui mènera le modèle à un 'biais d'apprentissage' et peut diminuer la précision de celui-ci lors de l'utilisation de données de test.\newline
 
 3. l'erreur irréductible (\textit{'irreductible error'}): cette erreur est la conséquence d'un traitement peu efficace des données en amont de l'apprentissage, les données qui seront utilisées par l'algorithme doivent êtres nettoyés avant d'être utilisées. cette erreur ne dépends donc pas de l'algorithme directement. \textit{"Garbage In, Garbage Out"}\newline
-\newpage
 
-\section{Deep Learning}
+
+En sachant que le biais s'exprime comme suit : 
+\[ Biais(\hat{f}(x)) = E(\hat{f}(x)) - f(x)\]
+
+ $\hat{f}(x)$ étant le modèle choisi (qui possiblement se rapproche le plus de la réelle fonction $f(x)$ qui est inconnue).
+ 
+ et que la variance s'exprime ainsi: 
+ \[ Var(\hat{f}(x)) = E(\hat{f}(x)^2) - E(\hat{f}(x))^2 \]
 
 \newpage
 

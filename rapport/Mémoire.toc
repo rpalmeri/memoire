@@ -12,6 +12,6 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Données d'apprentissage}{6}%
 \contentsline {subsubsection}{\numberline {2.2.2}Données de test}{6}%
 \contentsline {section}{\numberline {3}Le compromis Biais-Variance}{7}%
-\contentsline {section}{\numberline {4}Deep Learning}{9}%
-\contentsline {section}{\numberline {5}Simulation}{10}%
-\contentsline {section}{\numberline {6}Conclusion}{11}%
+\contentsline {subsection}{\numberline {3.1}Démonstration mathématique}{8}%
+\contentsline {section}{\numberline {4}Simulation}{9}%
+\contentsline {section}{\numberline {5}Conclusion}{10}%
