@@ -1,0 +1,17 @@
+https://elitedatascience.com/bias-variance-tradeoff
+
+http://scott.fortmann-roe.com/docs/BiasVariance.html
+
+https://github.com/yaodongyu/Rethink-BiasVariance-Tradeoff
+
+
+https://work.caltech.edu/telecourse
+
+https://www.elementsofai.com/
+
+
+https://www.youtube.com/watch?v=EuBBz3bI-aA
+
+https://www.quantstart.com/articles/The-Bias-Variance-Tradeoff-in-Statistical-Machine-Learning-The-Regression-Setting/
+
+seeing-theory.brown.edu
