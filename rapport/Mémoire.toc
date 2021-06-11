@@ -14,5 +14,6 @@
 \contentsline {section}{\numberline {3}Le compromis Biais-Variance}{7}%
 \contentsline {subsection}{\numberline {3.1}Démonstration mathématique}{8}%
 \contentsline {subsection}{\numberline {3.2}Décomposition du biais-variance}{9}%
+\contentsline {subsubsection}{\numberline {3.2.1}Preuve}{10}%
 \contentsline {section}{\numberline {4}Simulation}{11}%
 \contentsline {section}{\numberline {5}Conclusion}{12}%
