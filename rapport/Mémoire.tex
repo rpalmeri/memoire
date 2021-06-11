@@ -1,0 +1,239 @@
+% !TeX spellcheck = fr_FR
+\documentclass[a4paper]{article} 
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{url}
+
+\author{Raphael Palmeri\\1 ère Master en Sciences Informatiques\\ 2020-2021}
+\begin{document}
+
+\begin{titlepage}
+	\centering
+	{\scshape\LARGE Université de Mons \par}
+	\vspace{1cm}
+	{\scshape\large Faculté des Sciences \par}
+	\vspace{1.5cm}
+	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage Automatique \par}
+	\vspace{2cm}
+	{\Large\itshape Raphael Palmeri \par}
+	\vspace{2.5cm}
+	{Sous la direction de Souhaib Ben Taieb \par}
+	\vspace{1.5cm}
+	{1 ère Master en Sciences informatiques \par}
+	\vspace{5cm}
+	Année universitaire 2020-2021
+	\vfill
+	\includegraphics[scale=0.3]{"Faculte_Sciences_logo".png}
+	\hfill
+	\includegraphics[scale=0.4]{"UMONS-Logo".jpg}
+\end{titlepage}
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Dans le cadre de notre Master en Sciences Informatiques en horaire décalé, il nous est demandé de réaliser un mémoire sur un sujet proposé par les enseignants de l'UMons de la section Sciences Informatiques. Mon choix de sujet s'est porté sur "Le phénomène de double descente au sein de l'Apprentissage Machine (\textit{'The double descent phenomenon in machine learning'})".\newline
+
+Dans un premier temps, je vais présenter ce qu'est l'apprentissage Machine ainsi qu'expliquer brièvement les différentes sous-catégories existantes au sein de celui-ci. \newline
+
+Dans une deuxième partie, je vais expliquer les notions de biais et de variance, ainsi que le phénomène de compromis entre ces deux notions au sein de l'apprentissage machine. \newline
+
+Dans la troisième partie, je vais démontrer mathématiquement le compromis biais-variance et expliquer cette démonstration plus en détails. \newline
+
+Dans la quatrième partie, à l'aide de simulations, nous montrerons l'effet de ce phénomène ainsi que son comportement en influençant sur différents paramètres de la simulation.\newline
+
+\newpage
+
+\section{Apprentissage automatique ("Machine Learning")}
+
+L'apprentissage automatique, c'est la capacité d'un ordinateur à "apprendre" en se basant sur des données mises à sa disposition. Le terme "apprendre" dans ce cas-ci désigne la capacité à détecter/trouver des répétitions (\textit{'patterns'}) dans ces données. Ces répétitions permettront ensuite à la machine de donner une expertise par rapport à un problème donné ou une réponse à une certaine question. \cite{UnderstandingML}\cite{MLPracticalApproach} \newline 
+
+Afin de réaliser de l'apprentissage automatique, il est nécessaire d'avoir deux choses: un algorithme d'apprentissage (voir sous-section \ref{LearningAlgo}) et des données (voir sous-section \ref{Data}).
+
+\subsection{Algorithme d'apprentissage}
+\label{LearningAlgo}
+Il existe bien des algorithmes différents utilisés en machine learning. On les classe en deux catégories principales:
+
+\subsubsection{Apprentissage supervisés}
+Dans ce type d'apprentissage, la machine reçoit un ensemble de données avec les classes de tout les exemples existants.
+Par exemple, un expert aura déjà défini les différentes classes possibles pour la reconnaissance d'objets via des images ('Chaise', 'Table', 'Chien', 'Chat', ...). Les algorithmes de cette famille vont dès lors se basé sur ces classes déjà définies afin de pouvoir attribuer une classe (que l'on espère correcte) à une nouvelle donnée encore inconnue. Dans l'exemple ci-dessus, on parlera de \textbf{"Classification"}. \newline
+Il existe aussi des problèmes de \textbf{"Régression"}, ceux-ci tentent de liés une nouvelle donnée à un nombre réel. Par exemple, dans le cadre de l'estimation de prix de maison. \newline
+
+Afin de permettre l'apprentissage supervisé, il est nécessaire de fournir deux types de données à l'algorithme: 
+
+les données d'apprentissage qui est, comme expliqué ci-dessus, un ensemble de données ayant déjà reçus un label (ou une classe), cet ensemble est considéré comme complet, ç-à-d, tous les classes possibles existent en son sein et il existe au moins une donnée pour chacune des classes existantes. 
+\newline
+
+les données de test qui est un ensemble de données qui ne possèdent pas encore de classes qui serviront à tester et valider le modèle de la machine afin de vérifier que ses prédictions sont correctes. Dans le cas idéal, ces données n'ont jamais été traités par l'algorithme de manière à tester correctement le modèle (Si toutefois, il n'existe que très peu de données, il sera alors nécessaire d'utiliser de la validation croisée (\textit{'cross-validation'}) afin d'obtenir des résultats concluants.)
+
+Étant donné le fait que le compromis Biais-Variance (voir section \ref{B-V}) n'existent qu'au sein de cette famille d'algorithme, il est logique que celle-ci soit la famille que nous étudierons le plus dans ce rapport.
+
+\subsubsection{Apprentissage non-supervisés}
+Dans le cas d'algorithme non-supervisé, les données d'entrainement et de test sont mélangés. Le modèle n'aura aucun exemple pour s'aider à détecter un pattern, il devra le faire par lui même en étudiant les similarités entre les différentes données et les ranger par groupes afin qu'un expert puisse les utiliser dans le cadre de recherche par exemple. Dans le cadre de l'utilisation de cette famille, on parlera de \textbf{"Clustering"}. \newline
+
+\subsubsection{Apprentissage semi-supervisés et Apprentissage actif}
+Dans la plupart des situations, il est impossible de classifié l'ensemble des données d'apprentissage. Dans ce genre de cas, la machine doit dès lors apprendre des classes qui lui sont fournies mais aussi des données non labellisées, c'est ce que l'on appelle l'apprentissage semi-supervisé. Dans le cadre où ce n'est pas un expert qui donne les classes mais bien la machine qui tente de les labellisées, on se trouve dans le cas de l'apprentissage actif. 
+
+\subsubsection{Apprentissage par transfert et apprentissage multitâche}
+L'idée principale derrière l'apprentissage par transfert est d'aider le modèle à s'adapter à des situations qu'il n'as pas rencontrés précédemment. Cette forme d'apprentissage s'appuie sur le fait de tuner un modèle générale pour lui permettre de travailler dans un nouveau domaine.
+
+\subsubsection{Apprentissage par renforcement}
+L'apprentissage par renforcement se base sur l'idée de maximisé une récompense selon une ou plusieurs actions. On va dés lors définir en fonction des actions, si elles sont encouragées ou au contraire, découragés.
+
+\subsubsection{Exemples d'algorithmes}
+
+\begin{itemize}
+	\item Prédicteurs linéaires (\textit{'Linear Predictors'}) : tels que la régression linéaire, perceptron ...
+	\item Boosting
+	\item Support Vector Machines
+	\item Arbres de décision (\textit{'Decision Trees'})
+	\item Voisin le plus proche (\textit{'Nearest Neighbor'})
+	\item Réseau de neurones (\textit{'Neural Networks'})
+	\item ...
+\end{itemize}
+
+\newpage
+
+\subsection{Données}
+\label{Data}
+Afin de permettre le bon fonctionnement de l'apprentissage automatique, il est nécessaire d'avoir des données. Celles-ci doivent être présentes en quantité et, dans le meilleur des cas, elles doivent êtres "nettoyées" c-à-d, il faut parfois retirer des attributs inutiles, en modifier certains pour qu'il soit compréhensibles pour l'algorithme et certains sont inutilisables car incomplets.
+
+Ces données peuvent être distinguées en 2 catégories:
+
+\subsubsection{Données d'apprentissage}
+Ces données sont des exemples déjà traitées par un expert dans le domaine qui peuvent être utilisés comme exemple d'apprentissage pour les algorithmes supervisés.
+
+\subsubsection{Données de test}
+Ces données sont destinés à valider le modèle crée par l'algorithme d'apprentissage. l'idée est de fournir des données non vues précédemment à la machine afin de vérifier et valider son comportement. Si le modèle produit des résultats extrêmement éloignés de la vérité, c'est qu'il n'est pas encore prêt. Il faut donc repasser par une phase d'apprentissage en fournissant potentiellement plus de données d'apprentissage et/ou en les rendant plus précises afin que la machine établissent un nouveau modèle dont les réponses seront plus correctes.
+
+\newpage
+
+\section{Le compromis Biais-Variance}
+\label{B-V}
+Le compromis Biais-Variance n'est présent que dans le cadre d'un apprentissage supervisé !!!
+
+Le compromis biais-variance est valide uniquement lorsque l'on utilise les erreurs au carré (squared errors)
+
+Le biais est la différence entre les prédictions attendues du modèle trouvé et les vraies valeurs. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Training Risk'}.   \newline
+
+La variance indique l'écart des résultats en fonction de l'ensemble de données utilisées. Plus la variance est élevée et moins on pourra être certain des résultats d'un ensemble de données à un autre. Dans certains cas, les résultats seront excellents et dans d'autres cas, les résultats seront médiocres. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Test risk'}. \newline
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=1]{"bias-variance".png}
+	\caption{Représentation Compromis Biais-Variance. \cite{ReconcilingModernML}}
+	\label{Bias-Variance}
+\end{figure}
+
+\newpage
+
+\subsection{Démonstration mathématique}
+
+L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses (le compromis approximation-estimation qui est la version généralisé): \newline
+
+\[ error_{total} = error_{generalization} + error_{training} + error_{irreductible} \]
+
+1. l'erreur de généralisation ou le biais (\textit{'generalization error'}): cette erreur est la conséquence de la sélection d'un sous-ensemble que l'on considère comme étant représentatif. De par la sélection de ce sous-ensemble, on induit une possible erreur.\newline
+
+2. l'erreur d'entrainement ou la variance (\textit{'training error'}) : cette erreur est la conséquence de l'apprentissage, dans nos données sélectionnées pour l'apprentissage de la machine, on peut avoir des cas spécifiques qui ne se présentent que dans notre ensemble d'apprentissage. ce qui mènera le modèle à un 'biais d'apprentissage' et peut diminuer la précision de celui-ci lors de l'utilisation de données de test.\newline
+
+3. l'erreur irréductible (\textit{'irreductible error'}): cette erreur est la conséquence d'un traitement peu efficace des données en amont de l'apprentissage, les données qui seront utilisées par l'algorithme doivent êtres nettoyés avant d'être utilisées. cette erreur ne dépends donc pas de l'algorithme directement. \textit{"Garbage In, Garbage Out"}\newline
+
+
+En sachant que le biais s'exprime comme suit : 
+\[ Biais(\hat{f}(x)) = E(\hat{f}(x)) - f(x)\]
+
+ $\hat{f}(x)$ étant le modèle choisi (qui possiblement se rapproche le plus de la réelle fonction $f(x)$ qui est inconnue).
+ 
+ et que la variance s'exprime ainsi: 
+ \[ Var(\hat{f}(x)) = E(\hat{f}(x)^2) - E(\hat{f}(x))^2 \]
+
+\newpage
+
+\subsection{Décomposition du biais-variance}
+
+Considérons le modèle suivant : 
+\begin{equation}
+y = f(x) + \epsilon
+\end{equation}
+
+où : 
+
+\begin{itemize}
+	\item x $\sim$ p(x)
+	\item f est un fonction fixée inconnue
+	\item $\epsilon$ est du bruit aléatoire tel que :
+	\begin{itemize}
+		\item $E[\epsilon|x] = 0$
+		\item $Var(\epsilon|x) = \sigma^2$
+	\end{itemize}
+\end{itemize}
+
+
+étant donné un set de données $D = {(x_i, y_i)}^n_{i=1}$ où $(x_i, y_i)$ est un échantillon provenant de (1), et un ensemble d'hypothèses $H$, on calcule :
+\[ g^{(D)} = argmin_{h\in H}  E_{in}(h) := \frac{1}{n} \sum_{i=1}^{n} L(y_i,h(x_i)) \]
+
+étant donné D, l'erreur au carré hors-échantillon de $g^{(D)}$ est :
+\[ E_{out}(g^{(D)}) = E_{x,y}[(y - g^{(D)}(x))^2] \]
+
+considérons 
+\begin{equation}
+E_D[E_{out}(g^{(D)})] = E_{x,y,D}[(y - g^{(D)}(x))^2]
+\end{equation}
+représentant l'éspérance moyenne sur les variables x, y et D.
+
+En prenant $ \bar{g} = E_D[g^{(D)}(x)]$ , on peut décomposer (2) comme suit 
+\[ \underbrace{E_x[(f(x) - \bar{g}(x))^2]}_{Biais} + \underbrace{E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2]}_{Variance} + \underbrace{\sigma^2}_{Variance irreductible} \]
+
+\newpage
+
+On sait que le compromis biais-variance s'exprime comme suit : 
+\[ E_{x,y,D}[(y-g^{(D)}(x))^2] \]
+Prouvons qu'il est égal à :
+\[ E_x[(f(x) - \bar{g}(x))^2] + E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2] + \sigma^2 \]
+
+\subsubsection{Preuve}
+
+
+\newpage
+
+\section{Simulation}
+
+\newpage
+
+\section{Conclusion}
+
+\newpage
+
+\begin{thebibliography}{9}
+	
+	\bibitem{UnderstandingML}
+	Shalev-Shwartz S., Ben-David S.,
+	\textit{Understanding Machine Learning From Theory to Algorithms},
+	Cambridge University Press, 2019 (12th printing).
+	
+	\bibitem{MLPracticalApproach}
+	Fernandes de Mello R., Antonelli Ponti M.,
+	\textit{Machine Learning A practical Approach on the Statistical Learning Theory},
+	Springer, Cham, 2018.
+	
+	\bibitem{ReconcilingModernML}
+	Belkin M., Hsu D., Ma S., Mandal S.,
+	Reconciling modern machine learning practice and the bias-variance trade-off
+	\textit{arXiv:1812.11118v2}, November 1-4, 2015, pp. 337-350. 
+	
+	
+\end{thebibliography}
+\newpage
+
+\listoffigures
+\newpage
+
+
+\end{document}
