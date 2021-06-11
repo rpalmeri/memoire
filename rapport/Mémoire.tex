@@ -118,6 +118,8 @@ Ces données sont destinés à valider le modèle crée par l'algorithme d'appre
 \label{B-V}
 Le compromis Biais-Variance n'est présent que dans le cadre d'un apprentissage supervisé !!!
 
+Le compromis biais-variance est valide uniquement lorsque l'on utilise les erreurs au carré (squared errors)
+
 Le biais est la différence entre les prédictions attendues du modèle trouvé et les vraies valeurs. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Training Risk'}.   \newline
 
 La variance indique l'écart des résultats en fonction de l'ensemble de données utilisées. Plus la variance est élevée et moins on pourra être certain des résultats d'un ensemble de données à un autre. Dans certains cas, les résultats seront excellents et dans d'autres cas, les résultats seront médiocres. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Test risk'}. \newline
@@ -133,7 +135,7 @@ La variance indique l'écart des résultats en fonction de l'ensemble de donnée
 
 \subsection{Démonstration mathématique}
 
-L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \newline
+L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses (le compromis approximation-estimation qui est la version généralisé): \newline
 
 \[ error_{total} = error_{generalization} + error_{training} + error_{irreductible} \]
 
@@ -151,6 +153,48 @@ En sachant que le biais s'exprime comme suit :
  
  et que la variance s'exprime ainsi: 
  \[ Var(\hat{f}(x)) = E(\hat{f}(x)^2) - E(\hat{f}(x))^2 \]
+
+\newpage
+
+\subsection{Décomposition du biais-variance}
+
+Considérons le modèle suivant : 
+\begin{equation}
+y = f(x) + \epsilon
+\end{equation}
+
+où : 
+
+\begin{itemize}
+	\item x $\sim$ p(x)
+	\item f est un fonction fixée inconnue
+	\item $\epsilon$ est du bruit aléatoire tel que :
+	\begin{itemize}
+		\item $E[\epsilon|x] = 0$
+		\item $Var(\epsilon|x) = \sigma^2$
+	\end{itemize}
+\end{itemize}
+
+
+étant donné un set de données $D = {(x_i, y_i)}^n_{i=1}$ où $(x_i, y_i)$ est un échantillon provenant de (1), et un ensemble d'hypothèses $H$, on calcule :
+\[ g^{(D)} = argmin_{h\in H}  E_{in}(h) := \frac{1}{n} \sum_{i=1}^{n} L(y_i,h(x_i)) \]
+
+étant donné D, l'erreur au carré hors-échantillon de $g^{(D)}$ est :
+\[ E_{out}(g^{(D)}) = E_{x,y}[(y - g^{(D)}(x))^2] \]
+
+considérons 
+\begin{equation}
+E_D[E_{out}(g^{(D)})] = E_{x,y,D}[(y - g^{(D)}(x))^2]
+\end{equation}
+représentant l'éspérance moyenne sur les variables x, y et D.
+
+En prenant $ \bar{g} = E_D[g^{(D)}(x)]$ , on peut décomposer (2) comme suit 
+\[ \underbrace{E_x[(f(x) - \bar{g}(x))^2]}_{Biais} + \underbrace{E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2]}_{Variance} + \underbrace{\sigma^2}_{Variance irreductible} \]
+
+\newpage
+
+On sait que le compromis biais-variance s'exprime comme suit : 
+\[ E_{x,y,D}[(y-g^{(D)}(x))^2] \]
 
 \newpage
 
