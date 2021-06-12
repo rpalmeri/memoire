@@ -157,9 +157,11 @@ En sachant que le biais s'exprime comme suit :
 \newpage
 
 \subsection{Décomposition du biais-variance}
+\label{decomposition_Biais_Variance_section}
 
 Considérons le modèle suivant : 
 \begin{equation}
+\label{decomposition_Biais_Variance}
 y = f(x) + \epsilon
 \end{equation}
 
@@ -186,7 +188,7 @@ considérons
 \begin{equation}
 E_D[E_{out}(g^{(D)})] = E_{x,y,D}[(y - g^{(D)}(x))^2]
 \end{equation}
-représentant l'éspérance moyenne sur les variables x, y et D.
+représentant l'espérance moyenne sur les variables x, y et D.
 
 En prenant $ \bar{g} = E_D[g^{(D)}(x)]$ , on peut décomposer (2) comme suit 
 \[ \underbrace{E_x[(f(x) - \bar{g}(x))^2]}_{Biais} + \underbrace{E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2]}_{Variance} + \underbrace{\sigma^2}_{Variance irreductible} \]
@@ -195,16 +197,149 @@ En prenant $ \bar{g} = E_D[g^{(D)}(x)]$ , on peut décomposer (2) comme suit
 
 On sait que le compromis biais-variance s'exprime comme suit : 
 \[ E_{x,y,D}[(y-g^{(D)}(x))^2] \]
+En sachant que le g moyen est :
+\begin{equation}
+\label{g_moyen}
+\bar{g}(x) = E_D [g^{(D)}(x)]
+\end{equation}
 Prouvons qu'il est égal à :
 \[ E_x[(f(x) - \bar{g}(x))^2] + E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2] + \sigma^2 \]
 
 \subsubsection{Preuve}
 
+Reprenons l'expression du compromis :
+\begin{equation}
+\label{Bias_Variance_formula}
+E_{x,y,D}[(y-g^{(D)}(x))^2]
+\end{equation}
+
+On peut exprimer (\ref{Bias_Variance_formula}) comme suit : 
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_1}
+E_x [E_{y,D} [(y - g^{(D)}(x))^2 | x]]
+\end{equation}
+
+En fixant $x$, on peut simplifier (\ref{Bias-Variance_formula_proof_1}) :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_2}
+E_{y,D}[ (y - g^{(D)}(x))^2]
+\end{equation}
+
+En ajoutant $ - f(x) + f(x) $ à l'équation \ref{Bias-Variance_formula_proof_2}, on obtient :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_3}
+E_{y,D}[ (y - f(x) + f(x) - g^{(D)}(x))^2]
+\end{equation}
+
+En considérant $ y - f(x) $ comme étant $a$ et $ f(x) - g^{(D)}(x)$ comme $b$ et en appliquant la formule $(a+b)^2 = a^2 + b^2 + 2ab$ dans l'équation (\ref{Bias-Variance_formula_proof_3}), on obtient :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_4}
+E_{y,D} [(y-f(x))^2] + E_{y,D} [(f(x) - g^{(D)}(x))^2] + 2E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]
+\end{equation}
+
+En utilisant (\ref{decomposition_Biais_Variance}) pour remplacer $y$ dans l'équation (\ref{Bias-Variance_formula_proof_4}), on obtient :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_5}
+E_{y,D} [(f(x) + \epsilon - f(x))^2] + E_{y,D} [(f(x) - g^{(D)}(x))^2] + 2E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]
+\end{equation}
+
+En simplifiant l'équation (\ref{Bias-Variance_formula_proof_5}), on obtient :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_6}
+E_{y,D} [(\epsilon)^2] + E_{y,D} [(f(x) - g^{(D)}(x))^2] + 2E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]
+\end{equation}
+
+En utilisant la définition de la Variance de $\epsilon$ de la section \ref{decomposition_Biais_Variance_section}, on peut simplifier l'équation (\ref{Bias-Variance_formula_proof_6}) comme suit :
+
+\begin{equation}
+\label{Bias-Variance_formula_proof_7}
+\sigma^2 + E_{y,D} [(f(x) - g^{(D)}(x))^2] + 2E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]
+\end{equation}
+
+En utilisant (\ref{intermediate_proof_a_9}) (voir section \ref{intermediate_proof_a_subsection}) dans l'équation (\ref{Bias-Variance_formula_proof_7}), on obtient :
+
+\begin{equation}
+\sigma^2 + E_{y,D} [(f(x) - g^{(D)}(x))^2] + 0
+\end{equation}
 
 \newpage
 
-\section{Simulation}
+\subsubsection{Preuve intermédiaire de $2E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]$}
+\label{intermediate_proof_a_subsection}
+Prouvons que $E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]$ est $= 0$ 
 
+\begin{equation}
+\label{intermediate_proof_a_1}
+	E_{y,D} [(y-f(x)) (f(x) - g^{(D)}(x)) ]
+\end{equation}
+
+On peut distribuer dans l'équation (\ref{intermediate_proof_a_1}), on obtient :
+
+\begin{equation}
+\label{intermediate_proof_a_2}
+	E_{y,D} [yf(x) -yg^{(D)}(x) - f^2(x) + f(x)g^{(D)}(x)]
+\end{equation}
+
+En utilisant (\ref{decomposition_Biais_Variance}) dans l'équation (\ref{intermediate_proof_a_2}), on obtient :
+
+\begin{equation}
+\label{intermediate_proof_a_3}
+E_{y,D} [(f(x) + \epsilon)f(x) -(f(x) + \epsilon)g^{(D)}(x) - f^2(x) + f(x)g^{(D)}(x)]
+\end{equation}
+
+En séparant les différents éléments et en simplifiant dans (\ref{intermediate_proof_a_3}), on obtient :
+
+\begin{equation}
+\label{intermediate_proof_a_4}
+E_{y,D} [f^2(x) + \epsilon f(x)] - E_{y,D}[f(x)g^{(D)}(x) + \epsilon g^{(D)}(x)] - E_{y,D}[f^2(x)] + E_{y,D}[f(x)g^{(D)}(x)]
+\end{equation}
+
+En vérifiant les espérances, on peut encore simplifier l'équation (\ref{intermediate_proof_a_4}) en :
+
+\begin{equation}
+\label{intermediate_proof_a_5}
+f^2(x) + \epsilon f(x) - E_D[f(x)g^{(D)}(x) + \epsilon g^{(D)}(x)] - f^2(x) + E_D[ f(x)g^{(D)}(x)]
+\end{equation}
+
+En utilisant (\ref{g_moyen}) dans l'équation (\ref{intermediate_proof_a_5}), on obtient :
+
+\begin{equation}
+\label{intermediate_proof_a_6}
+f^2(x) + \epsilon f(x) - f(x)\bar{g}(x) + \epsilon g^{(D)}(x) - f^2(x) + f(x)\bar{g}(x)
+\end{equation}
+
+Pour faciliter la notation, nous avions fixé $x$, l'équation (\ref{intermediate_proof_a_6})  donne en réalité :
+
+\begin{equation}
+\label{intermediate_proof_a_7}
+E_x[f^2(x) + \epsilon f(x) - f(x)\bar{g}(x) + \epsilon g^{(D)}(x) - f^2(x) + f(x)\bar{g}(x)]
+\end{equation}
+
+En utilisant la définition de l'espérance de $\epsilon$ dans l'équation (\ref{intermediate_proof_a_7}), on obtient :
+
+\begin{equation}
+\label{intermediate_proof_a_8}
+E_x[f^2(x) + 0 f(x) - f(x)\bar{g}(x) + 0 g^{(D)}(x) - f^2(x) + f(x)\bar{g}(x)]
+\end{equation}
+
+En simplifiant l'équation (\ref{intermediate_proof_a_8}), on obtient finalement :
+
+\begin{equation}
+\label{intermediate_proof_a_9}
+E_x[f^2(x) - f(x)\bar{g}(x) - f^2(x) + f(x)\bar{g}(x)] = E_x[0] = 0
+\end{equation}
+
+On a donc prouvé mathématiquement que (\ref{intermediate_proof_a_1}) est bien égale à 0
+\newpage
+
+\section{Simulation}
+ 
 \newpage
 
 \section{Conclusion}
