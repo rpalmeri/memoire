@@ -18,11 +18,13 @@
 	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage Automatique \par}
 	\vspace{2cm}
 	{\Large\itshape Raphael Palmeri \par}
-	\vspace{2.5cm}
+	\vspace{2.0cm}
 	{Sous la direction de Souhaib Ben Taieb \par}
-	\vspace{1.5cm}
+	\vspace{1.0cm}
 	{1 ère Master en Sciences informatiques \par}
-	\vspace{5cm}
+	\vspace{0.5cm}
+	{Je soussigné, Palmeri Raphael, atteste avoir respecté les règles éthiques en vigueur \par}
+	\vspace{4cm}
 	Année universitaire 2020-2021
 	\vfill
 	\includegraphics[scale=0.3]{"Faculte_Sciences_logo".png}
@@ -120,7 +122,8 @@ Le compromis Biais-Variance n'est présent que dans le cadre d'un apprentissage 
 
 Le compromis biais-variance est valide uniquement lorsque l'on utilise les erreurs au carré (squared errors)
 
-Le biais est la différence entre les prédictions attendues du modèle trouvé et les vraies valeurs. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Training Risk'}.   \newline
+Le biais est la différence entre les prédictions attendues du modèle trouvé et les vraies valeurs. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Training Risk'}.\newline
+
 
 La variance indique l'écart des résultats en fonction de l'ensemble de données utilisées. Plus la variance est élevée et moins on pourra être certain des résultats d'un ensemble de données à un autre. Dans certains cas, les résultats seront excellents et dans d'autres cas, les résultats seront médiocres. Dans la figure \ref{Bias-Variance}, elle est indiqué comme étant la courbe de \textit{'Test risk'}. \newline
 
@@ -153,6 +156,10 @@ En sachant que le biais s'exprime comme suit :
  
  et que la variance s'exprime ainsi: 
  \[ Var(\hat{f}(x)) = E(\hat{f}(x)^2) - E(\hat{f}(x))^2 \]
+ 
+On peut exprimer le compromis biais-variance comme suit : \cite{BiasVarianceTradeoffTextbooksUpdate}
+
+\[ erreur_{totale} = Biais(\hat{f}(x)) + Var(\hat{f}(x)) + \sigma^2 \] 
 
 \newpage
 
@@ -290,7 +297,7 @@ En vérifiant les espérances, on peut encore simplifier l'équation (\ref{Bias-
 	\sigma^2 + (f(x) -\bar{g}(x))^2 + E_{D} [(\bar{g}(x) - g^{(D)}(x))^2] + 2 E_{y,D} [(f(x) -\bar{g}(x)) (\bar{g}(x) - g^(D)(x))]
 \end{equation}
 
-En utilisant la preuve intermédiaire (voir section \ref{intermediate_proof_b_subsection}), on obtient l'équation suivante :
+En utilisant la preuve intermédiaire (\ref{intermediate_proof_b_5}) (voir section \ref{intermediate_proof_b_subsection}), on obtient l'équation suivante :
 
 \begin{equation}
 	\label{Bias-Variance_formula_proof_12}
@@ -301,7 +308,7 @@ et finalement en ré-appliquant l'espérance de x que nous avions retiré pour f
 
 \begin{equation}
 	\label{Bias-Variance_formula_proof_13}
-	\sigma^2 + E_x[(f(x) -\bar{g}(x))^2] + E_{x,D} [(\bar{g}(x) - g^{(D)}(x))^2] + 0
+	\sigma^2 + E_x[(f(x) -\bar{g}(x))^2] + E_{x,D} [(\bar{g}(x) - g^{(D)}(x))^2]
 \end{equation}
 
 ce qui prouve bien que $ E_{x,y,D}[(y-g^{(D)}(x))^2] $ est équivalent à (\ref{Bias-Variance_formula_proof_13})
@@ -375,6 +382,45 @@ E_x[f^2(x) - f(x)\bar{g}(x) - f^2(x) + f(x)\bar{g}(x)] = E_x[0] = 0
 On a donc prouvé mathématiquement que (\ref{intermediate_proof_a_1}) est bien égale à 0
 \newpage
 
+\subsubsection{Preuve intermédiaire de $2E_{y,D} [(f(x)-\bar{g}(x)) (\bar{g}(x) - g^{(D)}(x)) ]$}
+\label{intermediate_proof_b_subsection}
+Prouvons que $E_{y,D} [(f(x)-\bar{g}(x)) (\bar{g}(x) - g^{(D)}(x)) ]$ est $= 0$ 
+
+\begin{equation}
+	\label{intermediate_proof_b_1}
+	E_{y,D} [(f(x)-\bar{g}(x)) (\bar{g}(x) - g^{(D)}(x)) ]
+\end{equation}
+
+On peut distribuer dans l'équation (\ref{intermediate_proof_b_1}), on obtient :
+
+\begin{equation}
+		\label{intermediate_proof_b_2}
+	E_{y,D} [ f(x)\bar{g}(x) - f(x)g^{(D)}(x) -g^2(x) + \bar{g}(x)g^{(D)}(x)]
+\end{equation}
+
+en vérifiant les espérances dans l'équation (\ref{intermediate_proof_b_2}), on obtient :
+
+\begin{equation}
+	\label{intermediate_proof_b_3}
+	f(x)\bar{g}(x) + E_{D} [- f(x)g^{(D)}(x)] + E_{D} [ \bar{g}(x)g^{(D)}(x)] -g^2(x)
+\end{equation}
+
+en appliquant la formule du g moyen (\ref{g_moyen}), on obtient l'équation suivante :
+
+\begin{equation}
+	\label{intermediate_proof_b_4}
+	f(x)\bar{g}(x) - f(x)\bar{g}(x) + \bar{g^2}(x) -\bar{g^2}(x)
+\end{equation}
+
+Finalement, en simplifiant l'équation (\ref{intermediate_proof_b_4}), on obtient :
+
+\begin{equation}
+	\label{intermediate_proof_b_5}
+	f(x)\bar{g}(x) - f(x)\bar{g}(x) + \bar{g^2}(x) -\bar{g^2}(x) = 0
+\end{equation}
+
+\newpage
+
 \section{Simulation}
  
 \newpage
@@ -385,20 +431,31 @@ On a donc prouvé mathématiquement que (\ref{intermediate_proof_a_1}) est bien 
 
 \begin{thebibliography}{9}
 	
-	\bibitem{UnderstandingML}
-	Shalev-Shwartz S., Ben-David S.,
-	\textit{Understanding Machine Learning From Theory to Algorithms},
-	Cambridge University Press, 2019 (12th printing).
+	\bibitem{ReconcilingModernML}
+	Belkin M., Hsu D., Ma S., Mandal S.,
+	Reconciling modern machine learning practice and the bias-variance trade-off
+	\textit{arXiv:1812.11118v2}, November 1-4, 2015, pp. 337-350.
 	
 	\bibitem{MLPracticalApproach}
 	Fernandes de Mello R., Antonelli Ponti M.,
 	\textit{Machine Learning A practical Approach on the Statistical Learning Theory},
 	Springer, Cham, 2018.
 	
-	\bibitem{ReconcilingModernML}
-	Belkin M., Hsu D., Ma S., Mandal S.,
-	Reconciling modern machine learning practice and the bias-variance trade-off
-	\textit{arXiv:1812.11118v2}, November 1-4, 2015, pp. 337-350. 
+	\bibitem{NeuralNetworksBiasVarianceDilemma}
+	Geman S., Bienenstock E., Doursat R.,
+	Neural Networks and the Bias/Variance Dilemma
+	\textit{Neural Computation} 4, 1-58, 1992
+	\url{http://direct.mit.edu/neco/article-pdf/4/1/1/812244/neco.1992.4.1.1.pdf}
+	
+	\bibitem{BiasVarianceTradeoffTextbooksUpdate}
+	Neal B.,
+	On the Bias-Variance Tradeoff : Textbooks Need an Update
+	\textit{arXiv:1912.08286v1}, December 2019
+	
+	\bibitem{UnderstandingML}
+	Shalev-Shwartz S., Ben-David S.,
+	\textit{Understanding Machine Learning From Theory to Algorithms},
+	Cambridge University Press, 2019 (12th printing).
 	
 	
 \end{thebibliography}
