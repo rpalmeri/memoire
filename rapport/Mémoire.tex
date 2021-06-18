@@ -136,6 +136,27 @@ La variance indique l'écart des résultats en fonction de l'ensemble de donnée
 
 \newpage
 
+Un exemple concret du compromis biais-variance est celui du tir sur cible :
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{"exemple Bias-Variance".png}
+	\caption{Exemple concret du Compromis Biais-Variance. \cite{UnderstandingBiasVarianceTradeoff}}
+	\label{ConcreteExample}
+\end{figure}
+
+Dans la figure \ref{ConcreteExample}, on a quatres cibles selon deux axes différents, le biais et la variance, chacun de ces axes peut-être soit faible, soit élevé. \par
+
+Le premier cas (biais faible et variance faible) représente un excellent tireur, il vise toujours le centre et ses tirs sont fortement groupés. \par
+
+Le second cas (biais faible et variance élevée) représente un 'bon' tireur, il vise le centre mais ses tirs sont assez dispersés. \par
+
+Le troisième cas (biais élevé et variance faible) représente un tireur moyen, il ne vise pas le centre mais n'est pas non plus hors de la cible ou au bord de celle-ci et ses tirs sont fortement groupés. \par
+
+Le quatrième cas (biais élevé et variance élevée) représente un mauvais tireur, il ne vise pas le centre et ses tirs sont très dispersés. \par
+
+\newpage
+
 \subsection{Démonstration mathématique}
 
 L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses (le compromis approximation-estimation qui est la version généralisé): \newline
@@ -212,7 +233,7 @@ En sachant que le g moyen est :
 Prouvons qu'il est égal à :
 \[ E_x[(f(x) - \bar{g}(x))^2] + E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2] + \sigma^2 \]
 
-\subsubsection{Preuve}
+\subsection{Preuve mathématique}
 
 Reprenons l'expression du compromis :
 \begin{equation}
@@ -456,6 +477,10 @@ Finalement, en simplifiant l'équation (\ref{intermediate_proof_b_4}), on obtien
 	Shalev-Shwartz S., Ben-David S.,
 	\textit{Understanding Machine Learning From Theory to Algorithms},
 	Cambridge University Press, 2019 (12th printing).
+	
+	\bibitem{UnderstandingBiasVarianceTradeoff}
+	\url{http://scott.fortmann-roe.com/docs/BiasVariance.html},
+	consulté le 18 Juin 2021 à 09:25
 	
 	
 \end{thebibliography}
