@@ -136,12 +136,44 @@ L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \
 \newpage
 
 \subsection{Le concept de Biais-Variance}
+
+\subsubsection{Le biais}
+Le biais est la mesure qui montre à quel point le modèle établi par l'algorithme d'apprentissage supervisé est proche de la 'vrai' fonction d'un problème donné. \newline
+
+La figure \ref{BiasRepresentation} montre une représentation graphique du biais. \textit{f} représente la 'vrai' fonction d'un problème donné, \textit{H} représente l'ensemble des hypothèses choisies et le point noir représente une hypothèse sélectionnée parmi \textit{H}. \newline
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=1]{"Representation Biais".png}
+	\caption{Représentation du Biais.}
+	\cite{BiasVarianceTradeoffTextbooksUpdate}
+	\label{BiasRepresentation}
+\end{figure}
+
+\subsubsection{La Variance}
+
+La variance est la variation entre la valeur d'un ensemble de données de test par rapport à la valeur donnée par le modèle choisi. 
+
+\newpage
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.75]{"BiasVarianceTradeoff".png}
+	\caption{Représentation de l'erreur en fonction de la complexité du modèle}
+	\cite{BiasVarianceTradeoffTextbooksUpdate}
+	\label{TradeoffRepresentation}
+\end{figure}
+
+La figure \ref{TradeoffRepresentation} montre l'impact du biais et de la variance sur l'erreur d'un modèle et ce en fonction de sa complexité. Elle montre aussi très bien le point d'optimisation de la complexité du modèle lié au compromis entre le biais et la variance.
+
+\newpage
+
 Un exemple concret du compromis biais-variance est celui du tir sur cible :
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.5]{"exemple Bias-Variance".png}
-	\caption{Exemple concret du Compromis Biais-Variance. \cite{UnderstandingBiasVarianceTradeoff}}
+	\caption{Exemple concret du Compromis Biais-Variance.} \cite{UnderstandingBiasVarianceTradeoff}
 	\label{ConcreteExample}
 \end{figure}
 
