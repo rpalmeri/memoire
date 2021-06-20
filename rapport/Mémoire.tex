@@ -157,21 +157,6 @@ Le quatrième cas (biais élevé et variance élevée) représente un mauvais ti
 
 \newpage
 
-\subsection{Démonstration mathématique}
-En sachant que le biais s'exprime comme suit : 
-\[ Biais(\hat{g}(x)) = E(\hat{g}(x)) - f(x)\]
-
- $\hat{f}(x)$ étant le modèle choisi (qui possiblement se rapproche le plus de la réelle fonction $f(x)$ qui est inconnue).
- 
- et que la variance s'exprime ainsi: 
- \[ Var(\hat{g}(x)) = E(\hat{g}(x)^2) - E(\hat{g}(x))^2 \]
- 
-On peut exprimer le compromis biais-variance comme suit : \cite{BiasVarianceTradeoffTextbooksUpdate}
-
-\[ erreur_{totale} = Biais(\hat{g}(x)) + Var(\hat{g}(x)) + \sigma^2 \] 
-
-\newpage
-
 \subsection{Décomposition du biais-variance}
 \label{decomposition_Biais_Variance_section}
 
@@ -185,7 +170,7 @@ où :
 
 \begin{itemize}
 	\item x $\sim$ p(x)
-	\item f est un fonction fixée inconnue
+	\item f est une fonction fixée inconnue
 	\item $\epsilon$ est du bruit aléatoire tel que :
 	\begin{itemize}
 		\item $E[\epsilon|x] = 0$
@@ -194,17 +179,17 @@ où :
 \end{itemize}
 
 
-étant donné un set de données $D = {(x_i, y_i)}^n_{i=1}$ où $(x_i, y_i)$ est un échantillon provenant de (1), et un ensemble d'hypothèses $H$, on calcule :
+étant donné un set de données $D = {(x_i, y_i)}^n_{i=1}$ où $(x_i, y_i)$ est un échantillon provenant de (1), et un ensemble d'hypothèses $H$, on calcule : \newline
 \[ g^{(D)} = argmin_{h\in H}  E_{in}(h) := \frac{1}{n} \sum_{i=1}^{n} L(y_i,h(x_i)) \]
 
-étant donné D, l'erreur au carré hors-échantillon de $g^{(D)}$ est :
+étant donné D, l'erreur au carré hors-échantillon de $g^{(D)}$ est : \newline
 \[ E_{out}(g^{(D)}) = E_{x,y}[(y - g^{(D)}(x))^2] \]
 
 considérons 
 \begin{equation}
 E_D[E_{out}(g^{(D)})] = E_{x,y,D}[(y - g^{(D)}(x))^2]
 \end{equation}
-représentant l'espérance moyenne sur les variables x, y et D.
+représentant l'espérance moyenne sur les variables x, y et D. \newline
 
 En prenant $ \bar{g} = E_D[g^{(D)}(x)]$ , on peut décomposer (2) comme suit 
 \[ \underbrace{E_x[(f(x) - \bar{g}(x))^2]}_{Biais} + \underbrace{E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2]}_{Variance} + \underbrace{\sigma^2}_{Variance irreductible} \]
