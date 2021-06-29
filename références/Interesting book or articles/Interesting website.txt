@@ -16,6 +16,13 @@ https://www.quantstart.com/articles/The-Bias-Variance-Tradeoff-in-Statistical-Ma
 
 seeing-theory.brown.edu
 
+Simulation Examples :
+
+* https://towardsdatascience.com/bias-variance-trade-off-with-python-example-6519d2084be4
+
+* https://www.bogotobogo.com/python/scikit-learn/scikit_machine_learning_Bias-variance-Tradeoff.php
+
+* https://scikit-learn.org/stable/auto_examples/ensemble/plot_bias_variance.html
 
 Learning to use Machine Learning Tools :
 
