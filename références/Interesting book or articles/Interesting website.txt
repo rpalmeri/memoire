@@ -15,3 +15,10 @@ https://www.youtube.com/watch?v=EuBBz3bI-aA
 https://www.quantstart.com/articles/The-Bias-Variance-Tradeoff-in-Statistical-Machine-Learning-The-Regression-Setting/
 
 seeing-theory.brown.edu
+
+
+Learning to use Machine Learning Tools :
+
+* https://github.com/hangtwenty/dive-into-machine-learning
+
+* https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html
