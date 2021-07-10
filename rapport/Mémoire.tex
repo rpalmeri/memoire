@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage[toc,page]{appendix}
+\renewcommand{\appendixpagename}{Annexes}
+\renewcommand{\appendixtocname}{Annexes}
 
 \author{Raphael Palmeri\\1 ère Master en Sciences Informatiques\\ 2020-2021}
 \begin{document}
@@ -15,6 +17,7 @@
 	{\scshape\LARGE Université de Mons \par}
 	\vspace{1cm}
 	{\scshape\large Faculté des Sciences \par}
+	\includegraphics[scale=0.3]{"Faculte_Sciences_logo".png}
 	\vspace{1.5cm}
 	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage Automatique \par}
 	\vspace{2cm}
@@ -138,7 +141,25 @@ L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \
 
 \subsection{Le compromis Biais-Variance}
 
-Le compromis biais-variance permet de quantifier le compromis approximation-estimation lorsque la fonction de perte utilisée est celle des erreurs au carré (squared errors)
+Le compromis biais-variance permet de quantifier le compromis approximation-estimation lorsque l'on utilise la fonction de perte quadratique (ou perte \textit{L2}) et plus particulièrement, l'erreur quadratique moyenne (\textit{MSE}).
+
+\subsubsection{La fonction de perte quadratique}
+Elle s'exprime comme suit :
+
+\[ (y - y')^2 \]
+
+où \textbf{y} représente la valeur véritable de la vrai fonction et \textbf{y'} représente la valeur estimée par le modèle. \newline
+
+L'erreur quadratique moyenne quant à elle n'est que la moyenne des erreurs sur l'ensemble des données :
+
+\[ MSE = \frac{1}{n} \sum_{(x,y)\in D} (y - y')^2 \]
+
+\subsubsection{Espérance mathématique d'une variable aléatoire}
+Dans les preuves de la décomposition du biais-variance, on peut y trouver une notation statistique appelée l'espérance mathématique qui se note $ E(x) $ pour une variable aléatoire $x$. \newline
+
+L'espérance mathématique représente la moyenne pondérée des valeurs que peut prendre cette variable. 
+
+\newpage
 
 \subsubsection{Le biais}
 Le biais est la mesure qui montre à quel point le modèle établi par l'algorithme d'apprentissage supervisé est proche de la 'vrai' fonction d'un problème donné. \newline
