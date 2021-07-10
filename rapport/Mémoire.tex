@@ -114,7 +114,11 @@ Le problème d'apprentissage automatique consiste à apprendre une fonction $f' 
 
 $f'$ peut aussi être vue comme étant une hypothèse $h \in \bm{H}$, choisie à partir d'une classe d'hypothèses $\bm{H$} contenant des fonctions possibles pour le modèle. \newline
 
-Dans un cadre idéal, la fonction $f'$ serait équivalente à la fonction $f$, la 'vrai' fonction qui régit $\bm{X} \to \bm{Y}$.
+Dans un cadre idéal, la fonction $f'$ serait équivalente à la fonction $f$, la 'vrai' fonction qui régit $\bm{X} \to \bm{Y}$. \newline
+
+Pour une fonction de perte $l: \bm{Y} \times \bm{Y}$, la qualité d'un prédicteur $h$ peut être quantifié par le \textit{risque} (ou \textit{l'erreur attendue}):
+
+\[ R(h) = \bm{E}_{(x,y)\sim D} \bm{l}(h(x),y) \]
 
 \subsubsection{La fonction de perte quadratique}
 Elle s'exprime comme suit :
