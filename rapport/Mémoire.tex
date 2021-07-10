@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage[toc,page]{appendix}
+\usepackage{bm}
 \renewcommand{\appendixpagename}{Annexes}
 \renewcommand{\appendixtocname}{Annexes}
 
@@ -17,7 +18,6 @@
 	{\scshape\LARGE Université de Mons \par}
 	\vspace{1cm}
 	{\scshape\large Faculté des Sciences \par}
-	\includegraphics[scale=0.3]{"Faculte_Sciences_logo".png}
 	\vspace{1.5cm}
 	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage Automatique \par}
 	\vspace{2cm}
@@ -105,6 +105,37 @@ L'apprentissage par renforcement se base sur l'idée de maximisé une récompens
 
 \newpage
 
+\subsection{Notation mathématiques}
+Dans cette sous-section, je fais expliquer les différentes notations mathématiques nécessaires à la bonne compréhension des prochains chapitres.
+
+Dans le cadre d'un apprentissage automatique supervisé, on cherche à prédire un résultat $y\in \bm{Y}$ à partir d'une donnée $x \in \bm{X}$ où les paires $(x,y)$ proviennent d'une distribution inconnue $\bm{D}$. \newline
+
+Le problème d'apprentissage automatique consiste à apprendre une fonction $f' : \bm{X} \to \bm{Y}$ à partir d'un ensemble de données d'entrainement fini $\bm{S}$ contenant $m$ variables indépendantes et identiquement distribuées (\textit{i.i.d}) provenant de $\bm{D}$. \newline
+
+$f'$ peut aussi être vue comme étant une hypothèse $h \in \bm{H}$, choisie à partir d'une classe d'hypothèses $\bm{H$} contenant des fonctions possibles pour le modèle. \newline
+
+Dans un cadre idéal, la fonction $f'$ serait équivalente à la fonction $f$, la 'vrai' fonction qui régit $\bm{X} \to \bm{Y}$.
+
+\subsubsection{La fonction de perte quadratique}
+Elle s'exprime comme suit :
+
+\[ (y - y')^2 \]
+
+où \textbf{y} représente la valeur véritable de la vrai fonction et \textbf{y'} représente la valeur estimée par le modèle. \newline
+
+L'erreur quadratique moyenne quant à elle n'est que la moyenne des erreurs sur l'ensemble des données :
+
+\[ MSE = \frac{1}{n} \sum_{(x,y)\in D} (y - y')^2 \]
+
+\subsubsection{Espérance mathématique d'une variable aléatoire}
+Dans les preuves de la décomposition du biais-variance, on peut y trouver une notation statistique appelée l'espérance mathématique qui se note $ E(x) $ pour une variable aléatoire $x$. \newline
+
+L'espérance mathématique représente la moyenne pondérée des valeurs que peut prendre cette variable. 
+
+\newpage
+
+\newpage
+
 \subsection{Données}
 \label{Data}
 Afin de permettre le bon fonctionnement de l'apprentissage automatique, il est nécessaire d'avoir des données. Celles-ci doivent être présentes en quantité et, dans le meilleur des cas, elles doivent êtres "nettoyées" c-à-d, il faut parfois retirer des attributs inutiles, en modifier certains pour qu'il soit compréhensibles pour l'algorithme et certains sont inutilisables car incomplets. \newline
@@ -142,24 +173,6 @@ L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \
 \subsection{Le compromis Biais-Variance}
 
 Le compromis biais-variance permet de quantifier le compromis approximation-estimation lorsque l'on utilise la fonction de perte quadratique (ou perte \textit{L2}) et plus particulièrement, l'erreur quadratique moyenne (\textit{MSE}).
-
-\subsubsection{La fonction de perte quadratique}
-Elle s'exprime comme suit :
-
-\[ (y - y')^2 \]
-
-où \textbf{y} représente la valeur véritable de la vrai fonction et \textbf{y'} représente la valeur estimée par le modèle. \newline
-
-L'erreur quadratique moyenne quant à elle n'est que la moyenne des erreurs sur l'ensemble des données :
-
-\[ MSE = \frac{1}{n} \sum_{(x,y)\in D} (y - y')^2 \]
-
-\subsubsection{Espérance mathématique d'une variable aléatoire}
-Dans les preuves de la décomposition du biais-variance, on peut y trouver une notation statistique appelée l'espérance mathématique qui se note $ E(x) $ pour une variable aléatoire $x$. \newline
-
-L'espérance mathématique représente la moyenne pondérée des valeurs que peut prendre cette variable. 
-
-\newpage
 
 \subsubsection{Le biais}
 Le biais est la mesure qui montre à quel point le modèle établi par l'algorithme d'apprentissage supervisé est proche de la 'vrai' fonction d'un problème donné. \newline
