@@ -16,6 +16,10 @@ https://www.quantstart.com/articles/The-Bias-Variance-Tradeoff-in-Statistical-Ma
 
 seeing-theory.brown.edu
 
+https://towardsdatascience.com/something-every-data-scientist-should-know-but-probably-doesnt-the-bias-variance-trade-off-25d97a17329d
+
+https://www.innoarchitech.com/blog/machine-learning-an-in-depth-non-technical-guide-part-3
+
 Simulation Examples :
 
 * https://towardsdatascience.com/bias-variance-trade-off-with-python-example-6519d2084be4
@@ -29,3 +33,7 @@ Learning to use Machine Learning Tools :
 * https://github.com/hangtwenty/dive-into-machine-learning
 
 * https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html
+
+* https://www.dataquest.io/blog/machine-learning-tutorial/
+
+* https://www.dataquest.io/blog/learning-curves-machine-learning/

@@ -106,7 +106,7 @@ L'apprentissage par renforcement se base sur l'idée de maximisé une récompens
 \newpage
 
 \subsection{Notation mathématiques}
-Dans cette sous-section, je fais expliquer les différentes notations mathématiques nécessaires à la bonne compréhension des prochains chapitres.
+Dans cette sous-section, je fais expliquer les différentes notations mathématiques nécessaires à la bonne compréhension des prochains chapitres. \newline
 
 Dans le cadre d'un apprentissage automatique supervisé, on cherche à prédire un résultat $y\in \bm{Y}$ à partir d'une donnée $x \in \bm{X}$ où les paires $(x,y)$ proviennent d'une distribution inconnue $\bm{D}$. \newline
 
@@ -116,9 +116,15 @@ $f'$ peut aussi être vue comme étant une hypothèse $h \in \bm{H}$, choisie à
 
 Dans un cadre idéal, la fonction $f'$ serait équivalente à la fonction $f$, la 'vrai' fonction qui régit $\bm{X} \to \bm{Y}$. \newline
 
-Pour une fonction de perte $l: \bm{Y} \times \bm{Y}$, la qualité d'un prédicteur $h$ peut être quantifié par le \textit{risque} (ou \textit{l'erreur attendue}):
+Pour une fonction de perte $l: \bm{Y} \times \bm{Y}$, la qualité d'un prédicateur $h$ peut être quantifié par le \textit{risque} (ou \textit{l'erreur attendue}):
 
 \[ R(h) = \bm{E}_{(x,y)\sim D} \bm{l}(h(x),y) \]
+
+Le but de l'apprentissage supervisé est de trouver $\min_{h \in \bm{H}} R(h)$, c'est-à-dire la valeur minimal de l'erreur attendue. Malheureusement, il nous est impossible de calculer réellement cette valeur car nous ne connaissons pas $\bm{D}$. Ce que nous connaissons, par contre, c'est \textit{l'erreur d'entrainement} :
+
+\[ \hat{R}(h) = \bm{E}_{(x,y)\sim S} \bm{l}(h(x),y) \]
+
+Cette erreur est issue de $\bm{S}$ qui est un ensemble provenant de $\bm{D}$, nous pouvons dés lors tenter de trouver la valeur minimal de celle-ci comme étant un substitut de celle de $R(h)$.
 
 \subsubsection{La fonction de perte quadratique}
 Elle s'exprime comme suit :
@@ -135,8 +141,6 @@ L'erreur quadratique moyenne quant à elle n'est que la moyenne des erreurs sur 
 Dans les preuves de la décomposition du biais-variance, on peut y trouver une notation statistique appelée l'espérance mathématique qui se note $ E(x) $ pour une variable aléatoire $x$. \newline
 
 L'espérance mathématique représente la moyenne pondérée des valeurs que peut prendre cette variable. 
-
-\newpage
 
 \newpage
 
