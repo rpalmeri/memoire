@@ -294,7 +294,17 @@ Prouvons qu'il est égal à :
 Afin de montrer le compromis biais-variance, j'ai réalise une série de simulations.
 
 \subsection{Simulation sur le nombre d'échantillons}
-Dans cette sous-section, les simulations ont été réalisées sur la base d'un changement de nombre d'échantillons utilisés par l'algorithme pour définir un modèle. Afin d'obtenir un moyenne d'erreur correcte, chaque algorithme crée 20 modèles différents.
+Dans cette sous-section, les simulations ont été réalisées sur la base d'un changement de nombre d'échantillons utilisés, sélectionnés aléatoirement, comme données d'entrainement par l'algorithme pour définir un modèle. Afin d'obtenir une moyenne d'erreur correcte, chaque algorithme crée 20 modèles différents. \newline
+
+Les différentes tailles d'échantillons utilisées sont : $100, 500, 1000, 2000, 4000, 8000, 10000$. \newline
+
+Les données sont basés sur un ensemble de données représentant les propriétés physico-chimiques de la structure tertiaire des protéines (disponible à l'adresse suivante : \url{https://archive.ics.uci.edu/ml/datasets/Physicochemical+Properties+of+Protein+Tertiary+Structure}). Aucune traitement spécifiques n'a été fait sur les données, elle sont utilisés telles quelles. \newline
+
+Les données de test sont un échantillon de 1000 enregistrements choisi aléatoirement sur les 45730 disponibles dans l'ensemble. \newline 
+
+Le code utilisé est présenté dans l'annexe \ref{SimulationSampleCountCode}.
+
+\newpage
 
 \subsubsection{Régression Linéaire}
 
@@ -305,9 +315,11 @@ Dans cette sous-section, les simulations ont été réalisées sur la base d'un 
 	\label{LR_SampleCount}
 \end{figure}
 
-Dans la figure \ref{LR_SampleCount}, on remarque que le biais est faible dès les premières valeurs d'échantillons et qu'il s'approche de zéro. Pour ce qui est de la variance, elle a tout d'abord une valeur supérieure à 2 lors des premières valeurs d'échantillons mais se rapproche de zéro lorsque l'on atteint 4000 échantillons. \newline
+Dans la figure \ref{LR_SampleCount}, on remarque que le biais est faible au départ de la simulation, il a approximativement une valeur de $0.25$ et qu'il tends vers $0$ lorsque le nombre d'échantillons augmente. Cela indique possiblement que l'ensemble de données est régi par une fonction linéaire et que le modèle c'est approché de cette "vraie" fonction.\newline
 
-Dans la partie de droite, on remarque que l'erreur totale ne semble pas diminuer en dessous d'approximativement 6.9 mais qu'entre 1000 et 4000 échantillons, on observe une augmentation prononcée juste avant une diminution tout aussi impressionnante avant que l'erreur totale ne se stabilise.
+Pour ce qui est de la variance, elle a tout d'abord une valeur approximativement égale à $1.75$ avant de décroitre rapidement avec l'augmentation du nombres d'échantillons jusqu'à plus ou moins 1000 échantillons, où la diminution se fait de manière plus réduite. Elle finie par tendre vers $0$ lorsque l'on dépasse les 8000 échantillons. \newline
+
+On observe que l'erreur quadratique croit en début de simulation avant d'atteindre son paroxysme à la valeur de $7.2$ lorsque 500 enregistrements sont utilisés. Finalement, elle décroit rapidement entre 500 et 1000 enregistrements avant d'atteindre sa valeur la plus basse avec 8000 enregistrements qui est de $6.4$.
 
 \newpage
 
@@ -320,7 +332,11 @@ Dans la partie de droite, on remarque que l'erreur totale ne semble pas diminuer
 	\label{DT_SampleCount}
 \end{figure}
 
-Dans la figure \ref{DT_SampleCount},
+Dans la figure \ref{DT_SampleCount}, on remarque que le biais tends vers $1$ en partant de $1.5$ en début de simulation. Ce n'est à proprement parler pas un mauvais résultat mais en le comparant à la régression linéaire, cette valeur est plus importante. \newline
+
+La variance part de la valeur $6$ en début de simulation, pour ne jamais descendre en dessous $3.5$. En comparatif de la régression linéaire, la valeur de variance est plus importante. On remarque aussi qu'elle n'est pas constamment entrain de décroitre ou de croitre mais qu'elle oscille entre les deux. \newline
+
+L'erreur quadratique oscille entre décroissement et accroissement jusqu'à la valeur clé de 2000 enregistrements où celle-ci ne fait que décroitre pour atteindre son minimum avec 8000 enregistrements avant de croitre à nouveau.
 
 \newpage
 
@@ -333,7 +349,11 @@ Dans la figure \ref{DT_SampleCount},
 	\label{BAG_SampleCount}
 \end{figure}
 
-Dans la figure \ref{BAG_SampleCount},
+Dans la figure \ref{BAG_SampleCount}, on remarque que le biais tends vers $0.5$ en partant de $1.1$ en décroissement tout d'abord rapidement et ensuite de manière moins marqué en arrivant à 500 enregistrements. \newline
+
+La variance part de la valeur $1.6$ en début de simulation, pour ensuite décroitre rapidement jusqu'à 500 enregistrements et finir par décroitre plus lentement à partir de 2000 enregistrements pour finalement atteindre $0.7$ qui est sa valeur minimum. \newline
+
+L'erreur quadratique décroit fortement en début de simulation pour s'accroitre à nouveau après 500 enregistrements. A 4000 enregistrements, l'erreur quadratique ne fait plus que décroitre pour atteindre son minimum en $4.5$.
 
 \newpage
 
@@ -346,7 +366,11 @@ Dans la figure \ref{BAG_SampleCount},
 	\label{RF_SampleCount}
 \end{figure}
 
-Dans la figure \ref{RF_SampleCount},
+Dans la figure \ref{RF_SampleCount}, on remarque que le biais et la variance se croisent deux fois lors de la simulation. Le biais décroit rapidement en début de simulation et décroit plus lentement au passage des 2000 enregistrements. Il arrive finalement à son minimum de $0.41$ en fin de simulation. \newline
+
+La variance, elle aussi, décroit rapidement avant les 2000 enregistrements pour finalement décroitre plus lentement. Elle atteint son minimum de $0.39$ en fin de simulation également. \newline
+
+L'erreur quadratique décroit rapidement jusqu'à 1000 enregistrements, s'accroit légèrement jusque 2000 enregistrements pour finalement atteindre son minimum à 8000 enregistrements avant de repartir à la hausse.
 
 \newpage
 
@@ -627,7 +651,11 @@ Dans la figure \ref{KNN_SampleCount},
 	
 	\bibitem{BiasVarianceTradeOffEliteDataScience}
 	\url{https://elitedatascience.com/bias-variance-tradeoff},
-	consulté le 21 Juin 2021 10:16
+	consulté le 21 Juin 2021 à 10:16
+	
+	\bibitem{ExperimentationBiasVariance}
+	\url{https://github.com/sayanam/MachineLearning/blob/master/ExperimentationWithBiasAndVariance/BiasAndVariance_V2.ipynb},
+	consulté le 15 Juillet 2021 à 18:20
 	
 	
 \end{thebibliography}
