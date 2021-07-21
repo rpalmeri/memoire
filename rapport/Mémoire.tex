@@ -19,13 +19,13 @@
 	\vspace{1cm}
 	{\scshape\large Faculté des Sciences \par}
 	\vspace{1.5cm}
-	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage Automatique \par}
+	{\huge\bfseries Le phénomène de double descente au sein de l'Apprentissage automatique \par}
 	\vspace{2cm}
 	{\Large\itshape Raphael Palmeri \par}
 	\vspace{2.0cm}
 	{Sous la direction de Souhaib Ben Taieb \par}
 	\vspace{1.0cm}
-	{1 ère Master en Sciences informatiques \par}
+	{Master en Sciences informatiques \par}
 	\vspace{0.5cm}
 	{Je soussigné, Palmeri Raphael, atteste avoir respecté les règles éthiques en vigueur \par}
 	\vspace{4cm}
@@ -44,7 +44,7 @@
 \newpage
 
 \section{Introduction}
-Dans le cadre de notre Master en Sciences Informatiques en horaire décalé, il nous est demandé de réaliser un mémoire sur un sujet proposé par les enseignants de l'UMons de la section Sciences Informatiques. Mon choix de sujet s'est porté sur "Le phénomène de double descente au sein de l'Apprentissage Machine (\textit{'The double descent phenomenon in machine learning'})".\newline
+Dans le cadre du Master en Sciences Informatiques en horaire décalé, il est demandé de réaliser un mémoire sur un sujet proposé par les enseignants de l'UMons de la section Sciences Informatiques. Mon choix de sujet s'est porté sur "Le phénomène de double descente au sein de l'Apprentissage Machine (\textit{'The double descent phenomenon in machine learning'})".\newline
 
 Dans un premier temps, je vais présenter ce qu'est l'apprentissage Machine ainsi qu'expliquer brièvement les différentes sous-catégories existantes au sein de celui-ci. \newline
 
@@ -52,28 +52,28 @@ Dans une deuxième partie, je vais expliquer les notions de biais et de variance
 
 Dans la troisième partie, je vais démontrer mathématiquement le compromis biais-variance et expliquer cette démonstration plus en détails. \newline
 
-Dans la quatrième partie, à l'aide de simulations, nous montrerons l'effet de ce phénomène ainsi que son comportement en influençant sur différents paramètres de la simulation.\newline
+Dans la quatrième partie, à l'aide de simulations, nous montrerons l'effet de ce phénomène ainsi que son comportement en face aux modifications des différents paramètres de la simulation.\newline
 
 \newpage
 
 \section{Apprentissage automatique ("Machine Learning")}
 
-L'apprentissage automatique, c'est la capacité d'un ordinateur à "apprendre" en se basant sur des données mises à sa disposition. Le terme "apprendre" dans ce cas-ci désigne la capacité à détecter/trouver des répétitions (\textit{'patterns'}) dans ces données. Ces répétitions permettront ensuite à la machine de donner une expertise par rapport à un problème donné ou une réponse à une certaine question. \cite{UnderstandingML}\cite{MLPracticalApproach} \newline 
+L'apprentissage automatique est la capacité d'un ordinateur à "apprendre" en se basant sur des données mises à sa disposition. Le terme "apprendre" désigne la capacité à détecter/trouver des répétitions (\textit{'patterns'}) dans ces données. Ces répétitions permettent à la machine de donner une expertise par rapport à un problème donné ou une réponse à une certaine question. \cite{UnderstandingML}\cite{MLPracticalApproach} \newline 
 
-L'apprentissage automatique est notamment utilisé dans différents domaines tels que le domaine de l'automobile avec ses voitures sans conducteurs, le domaine des Finances afin de notamment détecter les fraudes mais aussi le domaine de la santé avec la possibilité d'essayer de produire un diagnostic sur base des informations disponibles à propos d'un patient, ... \newline
+L'apprentissage automatique est notamment utilisé dans différents domaines tels que l'automobile avec ses voitures sans conducteurs, les finances afin de notamment détecter les fraudes ainsi que le domaine de la santé avec la possibilité d'essayer de produire un diagnostic sur base des informations disponibles à propos d'un patient, etc. \newline
 
-Afin de réaliser de l'apprentissage automatique, il est nécessaire d'avoir deux choses: un algorithme d'apprentissage (voir sous-section \ref{LearningAlgo}) et des données (voir sous-section \ref{Data}).
+Afin de réaliser de l'apprentissage automatique, il est nécessaire d'avoir deux choses: un algorithme d'apprentissage (voir sous-section \ref{LearningAlgo}) et des données (voir sous-section \ref{Data}) que nous allons explorer dans les prochaines sections.
 
 \newpage
 
 \subsection{Algorithme d'apprentissage}
 \label{LearningAlgo}
-Il existe bien des algorithmes différents utilisés en machine learning. il existe différents types d'algorithme d'apprentissage:
+Il existe des algorithmes différents en machine learning. il existe différents types d'algorithme d'apprentissage:
 
 \subsubsection{Apprentissage supervisés}
 Dans ce type d'apprentissage, la machine reçoit un ensemble de données avec les classes de tout les exemples existants.
-Par exemple, un expert aura déjà défini les différentes classes possibles pour la reconnaissance d'objets via des images ('Chaise', 'Table', 'Chien', 'Chat', ...). Les algorithmes de cette famille vont dès lors se basé sur ces classes déjà définies afin de pouvoir attribuer une classe (que l'on espère correcte) à une nouvelle donnée encore inconnue. Dans l'exemple ci-dessus, on parlera de \textbf{"Classification"}. \newline
-Il existe aussi des problèmes de \textbf{"Régression"}, ceux-ci tentent de liés une nouvelle donnée à un nombre réel. Par exemple, dans le cadre de l'estimation de prix de maison. \newline
+Par exemple, un expert aura déjà défini les différentes classes possibles pour la reconnaissance d'objets via des images ('Chaise', 'Table', 'Chien', 'Chat', ...). Les algorithmes de cette famille vont dès lors se baser sur ces classes déjà définies afin de pouvoir attribuer une classe (que l'on espère correcte) à une nouvelle donnée encore inconnue. Dans l'exemple ci-dessus, on parlera de \textbf{"Classification"}. \newline
+Il existe aussi des problèmes de \textbf{"Régression"}, ceux-ci tentent de lier une nouvelle donnée à un nombre réel. Par exemple, dans le cadre de l'estimation de prix de maison. \newline
 
 Étant donné le fait que le compromis Biais-Variance (voir section \ref{B-V}) n'existent qu'au sein de cette famille d'algorithme, il est logique que celle-ci soit la famille que nous étudierons le plus dans ce rapport.
 
@@ -81,10 +81,10 @@ Il existe aussi des problèmes de \textbf{"Régression"}, ceux-ci tentent de li�
 Dans le cas d'algorithme non-supervisé, les données d'entrainement et de test sont mélangés. Le modèle n'aura aucun exemple pour s'aider à détecter un pattern, il devra le faire par lui même en étudiant les similarités entre les différentes données et les ranger par groupes afin qu'un expert puisse les utiliser dans le cadre de recherche par exemple. Dans le cadre de l'utilisation de cette famille, on parlera de \textbf{"Clustering"}. \newline
 
 \subsubsection{Apprentissage semi-supervisés et Apprentissage actif}
-Dans la plupart des situations, il est impossible de classifié l'ensemble des données d'apprentissage. Dans ce genre de cas, la machine doit dès lors apprendre des classes qui lui sont fournies mais aussi des données non labellisées, c'est ce que l'on appelle l'apprentissage semi-supervisé. Dans le cadre où ce n'est pas un expert qui donne les classes mais bien la machine qui tente de les labellisées, on se trouve dans le cas de l'apprentissage actif. 
+Dans la plupart des situations, il est impossible de classifier l'ensemble des données d'apprentissage. Dans ce genre de cas, la machine doit dès lors apprendre des classes qui lui sont fournies, mais aussi des données non labellisées, c'est ce que l'on appelle l'apprentissage semi-supervisé. Dans le cadre où ce n'est pas un expert qui donne les classes mais bien la machine qui tente de les labelliser, on se trouve dans le cas de l'apprentissage actif. 
 
 \subsubsection{Apprentissage par transfert et apprentissage multitâche}
-L'idée principale derrière l'apprentissage par transfert est d'aider le modèle à s'adapter à des situations qu'il n'as pas rencontrés précédemment. Cette forme d'apprentissage s'appuie sur le fait de tuner un modèle générale pour lui permettre de travailler dans un nouveau domaine.
+L'idée principale derrière l'apprentissage par transfert est d'aider le modèle à s'adapter à des situations qu'il n'as pas rencontrés précédemment. Cette forme d'apprentissage s'appuie sur le fait de tuner un modèle générale qui lui permettra de travailler dans un nouveau domaine.
 
 \newpage
 
@@ -158,7 +158,7 @@ Ces données sont destinés à valider le modèle crée par l'algorithme d'appre
 
 \newpage
 
-\section{Le compromis Biais-Variance}
+\section{Le compromis Biais - Variance}
 \label{B-V}
 
 Afin de mieux comprendre la notion du compromis de Biais-Variance, il est important de comprendre sa version plus général qui est le compromis Approximation-Estimation (voir sous-section \ref{A-E})
@@ -178,11 +178,11 @@ L'erreur totale au sein de l'apprentissage machine est constitué de 3 choses: \
 
 \newpage
 
-\subsection{Le compromis Biais-Variance}
+\subsection{Le compromis Biais - Variance}
 
 Le compromis biais-variance permet de quantifier le compromis approximation-estimation lorsque l'on utilise la fonction de perte quadratique (ou perte \textit{L2}) et plus particulièrement, l'erreur quadratique moyenne (\textit{MSE}).
 
-\subsubsection{Le biais}
+\subsubsection{Le Biais}
 Le biais est la mesure qui montre à quel point le modèle établi par l'algorithme d'apprentissage supervisé est proche de la 'vrai' fonction d'un problème donné. \newline
 
 La figure \ref{BiasRepresentation} montre une représentation graphique du biais. \textit{f} représente la 'vrai' fonction d'un problème donné, \textit{H} représente l'ensemble des hypothèses choisies et le point noir représente une hypothèse sélectionnée parmi \textit{H}. \newline
