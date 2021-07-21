@@ -383,7 +383,11 @@ L'erreur quadratique décroit rapidement jusqu'à 1000 enregistrements, s'accroi
 	\label{ADAB_SampleCount}
 \end{figure}
 
-Dans la figure \ref{ADAB_SampleCount},
+Dans la figure \ref{ADAB_SampleCount}, On remarque que le biais et la variance se croise en un point (6500 enregistrements). Le biais ne fait jamais que décroitre mais avec trois rythmes différents , d'abord rapidement jusqu'à 2000 enregistrements; un peu plus modérément entre 2000 et 8000 enregistrements et finalement assez lentement entre 8000 et 10000 enregistrements. \newline
+
+La variance décroit légèrement lors du début de la simulation pour croitre un peu plus entre 500 et 1000 enregistrements et ensuite décroit de manière modéré ente 1000 et 8000 enregistrements. \newline
+
+L'erreur quadratique croit dans un premier temps, puis décroit pour croitre de manière assez rapide entre 1000 et 4000 enregistrements. Ensuite, de 4000 à 8000 enregistrements, elle décroit pour finalement se stabiliser à $13$.
 
 \newpage
 
@@ -396,7 +400,11 @@ Dans la figure \ref{ADAB_SampleCount},
 	\label{KNN_SampleCount}
 \end{figure}
 
-Dans la figure \ref{KNN_SampleCount},
+Dans la figure \ref{KNN_SampleCount}, On remarque que le biais ne fait que décroitre au fur et à mesure du nombres d'enregistrements utilisés. Sa valeur minimal se situe à $0.65$ avec 10000 enregistrements. \newline
+
+La variance suit une tendance identique à celle de biais si ce n'est que la décroissance est moins prononcée. Sa valeur minimal est de $0.9$ avec 10000 enregistrements. \newline 
+
+L'erreur quadratique montre d'abord une décroissance rapide avec ensuite une alternance entre accroissement et décroissement avec un premier minimum atteint à 2000 enregistrements avant de croitre à nouveau. On remarque aussi que le minimum peut-être atteint à nouveau avec 10000 enregistrements.
 
 \newpage
 
