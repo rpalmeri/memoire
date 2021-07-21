@@ -286,9 +286,94 @@ En sachant que le g moyen est :
 \end{equation}
 Prouvons qu'il est égal à :
 \[ E_x[(f(x) - \bar{g}(x))^2] + E_{x,D}[(\bar{g}(x) - g^{(D)}(x))^2] + \sigma^2 \]
+(Voir Preuve en annexe \ref{MathematicalProof})
+
+\newpage
 
 \section{Simulation}
- 
+Afin de montrer le compromis biais-variance, j'ai réalise une série de simulations.
+
+\subsection{Simulation sur le nombre d'échantillons}
+Dans cette sous-section, les simulations ont été réalisées sur la base d'un changement de nombre d'échantillons utilisés par l'algorithme pour définir un modèle. Afin d'obtenir un moyenne d'erreur correcte, chaque algorithme crée 20 modèles différents.
+
+\subsubsection{Régression Linéaire}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"LR_SampleCount_sim".png}
+	\caption{Simulation d'une Régression Linéaire en fonction du nombre d'échantillons}
+	\label{LR_SampleCount}
+\end{figure}
+
+Dans la figure \ref{LR_SampleCount}, on remarque que le biais est faible dès les premières valeurs d'échantillons et qu'il s'approche de zéro. Pour ce qui est de la variance, elle a tout d'abord une valeur supérieure à 2 lors des premières valeurs d'échantillons mais se rapproche de zéro lorsque l'on atteint 4000 échantillons. \newline
+
+Dans la partie de droite, on remarque que l'erreur totale ne semble pas diminuer en dessous d'approximativement 6.9 mais qu'entre 1000 et 4000 échantillons, on observe une augmentation prononcée juste avant une diminution tout aussi impressionnante avant que l'erreur totale ne se stabilise.
+
+\newpage
+
+\subsubsection{Arbre de décision}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"DT_SampleCount_sim".png}
+	\caption{Simulation d'un Arbre de décision en fonction du nombre d'échantillons}
+	\label{DT_SampleCount}
+\end{figure}
+
+Dans la figure \ref{DT_SampleCount},
+
+\newpage
+
+\subsubsection{Bagging}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"BAG_SampleCount_sim".png}
+	\caption{Simulation d'un Bagging en fonction du nombre d'échantillons}
+	\label{BAG_SampleCount}
+\end{figure}
+
+Dans la figure \ref{BAG_SampleCount},
+
+\newpage
+
+\subsubsection{Random Forest}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"RF_SampleCount_sim".png}
+	\caption{Simulation d'une Forêt aléatoire en fonction du nombre d'échantillons}
+	\label{RF_SampleCount}
+\end{figure}
+
+Dans la figure \ref{RF_SampleCount},
+
+\newpage
+
+\subsubsection{Ada Boost}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"ADAB_SampleCount_sim".png}
+	\caption{Simulation Ada Boost en fonction du nombre d'échantillons}
+	\label{ADAB_SampleCount}
+\end{figure}
+
+Dans la figure \ref{ADAB_SampleCount},
+
+\newpage
+
+\subsubsection{K plus proches voisins}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"KNN_SampleCount_sim".png}
+	\caption{Simulation K plus proches voisins en fonction du nombre d'échantillons}
+	\label{KNN_SampleCount}
+\end{figure}
+
+Dans la figure \ref{KNN_SampleCount},
+
 \newpage
 
 \section{Conclusion}
@@ -298,6 +383,7 @@ Prouvons qu'il est égal à :
 \begin{appendices}
 	
 	\section{Preuve mathématique}
+	\label{MathematicalProof}
 	
 	Reprenons l'expression du compromis :
 	\begin{equation}
