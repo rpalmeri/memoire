@@ -7,6 +7,7 @@
 \usepackage{url}
 \usepackage[toc,page]{appendix}
 \usepackage{bm}
+\usepackage{listings}
 \renewcommand{\appendixpagename}{Annexes}
 \renewcommand{\appendixtocname}{Annexes}
 
@@ -291,7 +292,7 @@ Prouvons qu'il est égal à :
 \newpage
 
 \section{Simulation}
-Afin de montrer le compromis biais-variance, j'ai réalise une série de simulations.
+Afin de montrer le comportement du biais et de la variance, j'ai réalise une série de simulations.
 
 \subsection{Simulation sur le nombre d'échantillons}
 Dans cette sous-section, les simulations ont été réalisées sur la base d'un changement de nombre d'échantillons utilisés, sélectionnés aléatoirement, comme données d'entrainement par l'algorithme pour définir un modèle. Afin d'obtenir une moyenne d'erreur correcte, chaque algorithme crée 20 modèles différents. \newline
@@ -405,6 +406,22 @@ Dans la figure \ref{KNN_SampleCount}, On remarque que le biais ne fait que décr
 La variance suit une tendance identique à celle de biais si ce n'est que la décroissance est moins prononcée. Sa valeur minimal est de $0.9$ avec 10000 enregistrements. \newline 
 
 L'erreur quadratique montre d'abord une décroissance rapide avec ensuite une alternance entre accroissement et décroissement avec un premier minimum atteint à 2000 enregistrements avant de croitre à nouveau. On remarque aussi que le minimum peut-être atteint à nouveau avec 10000 enregistrements.
+
+\newpage
+
+\subsection{Simulation K voisin le plus proche sur K}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{"KNN_OverK_sim".png}
+	\caption{Simulation K plus proches voisins en fonction du nombre de voisins requis}
+	\label{KNN_Over_K}
+\end{figure}
+
+Dans la figure \ref{KNN_Over_K}, on remarque que le biais est fortement élevé. Cela indique que le l'ensemble de données utilisé n'est pas le plus adapté pour l'utilisation d'un algorithme tel que celui des k-voisins les plus proches. \newline
+
+On remarque que l'erreur quadratique diminue lors du début de la simulation pour finalement remonté par la suite de la simulation. Nous avons là un représentation du compromis biais-variance. \newline
+
 
 \newpage
 
@@ -621,6 +638,222 @@ L'erreur quadratique montre d'abord une décroissance rapide avec ensuite une al
 		\label{intermediate_proof_b_5}
 		f(x)\bar{g}(x) - f(x)\bar{g}(x) + \bar{g^2}(x) -\bar{g^2}(x) = 0
 	\end{equation}
+
+\newpage
+
+\section{Code de Simulation sur le nombre d'enregistrements}
+
+\begin{lstlisting}[language=Python]
+	import sys
+	import tqdm
+	import pandas as pd
+	import numpy as np
+	import matplotlib.pyplot as plt
+	from sklearn.linear_model import LinearRegression
+	from sklearn.tree import DecisionTreeRegressor
+	from sklearn.ensemble import BaggingRegressor
+	from sklearn.metrics import mean_squared_error
+	from sklearn.ensemble import RandomForestRegressor
+	from sklearn.ensemble import AdaBoostRegressor
+	from sklearn.neighbors import KNeighborsRegressor
+	
+	#Load the data and prepare train & test data
+	population_data= pd.read_csv("CASP.csv")
+	
+	test_data = population_data.sample(1000, replace=False, random_state=100) #300
+	train_data = population_data.drop(test_data.index, axis=0).reindex()
+	test_data = test_data.reindex()
+	
+	X_train = population_data.drop(['F9'], axis=1)
+	y_train = population_data['F9']
+	X_test = test_data.drop(['F9'], axis=1)
+	y_test = test_data['F9']
+	
+	def calculate_variance_of_model(samplePredictions, y_test):
+	predictions_mean_model = samplePredictions.mean(axis =1)
+	colNames = samplePredictions.columns
+	variance = np.zeros(len(colNames))
+	i = 0
+	for colName in colNames:
+	variance[i] = np.mean(np.square(samplePredictions[colName] - predictions_mean_model))
+	rmse = mean_squared_error(y_test, samplePredictions[colName])
+	i += 1
+	return round(np.mean(variance),3), round(np.mean(rmse),3)
+	
+	def calculate_bias_of_model(samplePredictions, y_hat_pop):
+	return np.square((np.abs(samplePredictions.mean(axis=1) -y_hat_pop).mean()))
+	
+	def samplePredForEstimator(estimator, X_train, y_train):
+	sample_Model = estimator.fit(X_train, y_train)
+	return sample_Model.predict(X_test)
+	
+	def get_bias_variance(sampleCount, noOfModels, y_hat_pop, estimator_name, estimator):
+	bias_variance_result = pd.DataFrame(columns=['sample_count','no_of_models','algorithm','bias','variance', 'mse'])
+	print('Builds ', estimator_name)
+	print('Total No of models built is',str(noOfModels))
+	
+	samplePredictionsModel = pd.DataFrame()
+	
+	with tqdm.tqdm(total=noOfModels, file=sys.stdout) as pbar:
+	for i in range(0, noOfModels):
+	pbar.set_description('Building Model : %d' % (1 + i))
+	sample = train_data.sample(sampleCount,replace=False)
+	X_train = sample.drop(['F9'], axis=1)
+	y_train = sample['F9']
+	
+	samplePredictionsModel['sample'+str(i+1)] = samplePredForEstimator(estimator, X_train, y_train)
+	pbar.update(1)
+	
+	var_mse_linear_model = calculate_variance_of_model(samplePredictionsModel, y_test)
+	
+	bias_linear_model = calculate_bias_of_model(samplePredictionsModel, y_hat_pop)
+	
+	s_linear = pd.Series(data={'sample_count':sampleCount, 'no_of_models':noOfModels, 'algorithm':'LR',
+		'bias':bias_linear_model, 'variance' : var_mse_linear_model[0], 'mse' : var_mse_linear_model[1]}, name = 0)
+	
+	bias_variance_result = bias_variance_result.append(s_linear)
+	
+	bias_variance_result.reset_index(inplace=True)
+	bias_variance_result.drop(['index'], axis=1, inplace=True)
+	
+	return bias_variance_result
+	
+	def bias_variance_mse_graphics(noOfSamples, noOfModels, y_hat_pop, estimator_name, estimator) :
+	lenNoOfSamples = len(noOfSamples)
+	bias_variance_result = pd.DataFrame()
+	print('Building Model for samples ', noOfSamples)
+	for i in range(0, lenNoOfSamples):
+	noOfSample = noOfSamples[i]
+	print('Building models with sample size : ', noOfSample)
+	bias_variance_result = bias_variance_result.append(get_bias_variance(noOfSample,noOfModels, y_hat_pop, estimator_name, estimator))
+	bias_variance_result.reset_index(inplace=True)
+	bias_variance_result.drop(['index'], axis=1, inplace=True)
+	
+	# Plotting the obtained results
+	fig, ax = plt.subplots(1,2, figsize = (14,6))
+	ax[0].plot(bias_variance_result.sample_count, bias_variance_result.bias)
+	ax[0].plot(bias_variance_result.sample_count, bias_variance_result.variance)
+	ax[0].legend(['bias','variance'])
+	ax[0].set_xlabel('sample count')
+	
+	ax[1].plot(bias_variance_result.sample_count, bias_variance_result.mse)
+	ax[1].legend(['mse'])
+	ax[1].set_xlabel('sample count')
+	plt.show()
+	
+	estimators = [LinearRegression(), DecisionTreeRegressor(),
+	BaggingRegressor(), RandomForestRegressor(), AdaBoostRegressor(loss='square'),
+	KNeighborsRegressor()]
+	
+	for estimator in estimators : 
+	population_model = estimator.fit(X_train, y_train)
+	y_hat_pop = population_model.predict(X_test)
+	estimator_name = str(estimator).replace('()','')
+	bias_variance_mse_graphics([100,500,1000,2000,4000,8000,10000], 20, y_hat_pop, estimator_name, estimator)
+\end{lstlisting}
+
+\newpage
+
+\section{Code de Simulation sur le nombre de voisins}
+
+\begin{lstlisting}[language=Python]
+	import sys
+	import tqdm
+	import pandas as pd
+	import numpy as np
+	import matplotlib.pyplot as plt
+	from sklearn.metrics import mean_squared_error
+	from sklearn.neighbors import KNeighborsRegressor
+	
+	#Load the data and prepare train & test data
+	population_data= pd.read_csv("CASP.csv")
+	
+	test_data = population_data.sample(1000, replace=False, random_state=100)
+	train_data = population_data.drop(test_data.index, axis=0).reindex()
+	test_data = test_data.reindex()
+	
+	X_train = population_data.drop(['F9'], axis=1)
+	y_train = population_data['F9']
+	X_test = test_data.drop(['F9'], axis=1)
+	y_test = test_data['F9']
+	
+	def calculate_variance_of_model(samplePredictions, y_test):
+	predictions_mean_model = samplePredictions.mean(axis =1)
+	colNames = samplePredictions.columns
+	variance = np.zeros(len(colNames))
+	i = 0
+	for colName in colNames:
+	variance[i] = np.mean(np.square(samplePredictions[colName] - predictions_mean_model))
+	rmse = mean_squared_error(y_test, samplePredictions[colName])
+	i += 1
+	return round(np.mean(variance),3), round(np.mean(rmse),3)
+	
+	def calculate_bias_of_model(samplePredictions, y_hat_pop):
+	return np.square((np.abs(samplePredictions.mean(axis=1) -y_hat_pop).mean()))
+	
+	def samplePredForEstimator(n_neigh, X_train, y_train):
+	sample_Model = KNeighborsRegressor(n_neighbors=n_neigh).fit(X_train, y_train)
+	return sample_Model.predict(X_test)
+	
+	def get_bias_variance(sampleCount, noOfModels, estimator_name, n_neigh):
+	bias_variance_result = pd.DataFrame(columns=['neigh','no_of_models','algorithm','bias','variance', 'mse'])
+	print('Builds ', estimator_name)
+	print('Total No of models built is',str(noOfModels))
+	
+	samplePredictionsModel = pd.DataFrame()
+	
+	with tqdm.tqdm(total=noOfModels, file=sys.stdout) as pbar:
+	for i in range(0, noOfModels):
+	pbar.set_description('Building Model : %d' % (1 + i))
+	sample = train_data.sample(sampleCount,replace=False)
+	X_train = sample.drop(['F9'], axis=1)
+	y_train = sample['F9']
+	
+	samplePredictionsModel['sample'+str(i+1)] = samplePredForEstimator(n_neigh, X_train, y_train)
+	pbar.update(1)
+	
+	var_mse_linear_model = calculate_variance_of_model(samplePredictionsModel, y_test)
+	
+	bias_linear_model = calculate_bias_of_model(samplePredictionsModel, y_test)
+	
+	s_linear = pd.Series(data={'neigh':n_neigh, 'no_of_models':noOfModels, 'algorithm':'KNN',
+		'bias':bias_linear_model, 'variance' : var_mse_linear_model[0], 'mse' : var_mse_linear_model[1]}, name = 0)
+	
+	bias_variance_result = bias_variance_result.append(s_linear)
+	
+	bias_variance_result.reset_index(inplace=True)
+	bias_variance_result.drop(['index'], axis=1, inplace=True)
+	
+	return bias_variance_result
+	
+	def bias_variance_mse_graphics(noOfSamples, noOfModels, estimator_name, noOfNeighbors) :
+	lenNoOfNeighbors = len(noOfNeighbors)
+	bias_variance_result = pd.DataFrame()
+	print('Building Model for samples ', noOfSamples)
+	for i in range(0, lenNoOfNeighbors):
+	noOfNeighbor = noOfNeighbors[i]
+	print('Building models with k neighbors : ', noOfNeighbor)
+	bias_variance_result = bias_variance_result.append(get_bias_variance(40000,noOfModels, estimator_name, noOfNeighbor))
+	bias_variance_result.reset_index(inplace=True)
+	bias_variance_result.drop(['index'], axis=1, inplace=True)
+	print(bias_variance_result)
+	
+	# Plotting the obtained results
+	fig, ax = plt.subplots(1,2, figsize = (14,6))
+	ax[0].plot(bias_variance_result.neigh, bias_variance_result.bias)
+	ax[0].plot(bias_variance_result.neigh, bias_variance_result.variance)
+	ax[0].legend(['bias','variance'])
+	ax[0].set_xlabel('k')
+	
+	ax[1].plot(bias_variance_result.neigh, bias_variance_result.mse)
+	ax[1].legend(['mse'])
+	ax[1].set_xlabel('k')
+	plt.show()
+	
+	noOfNeighbors = [1,5,10,15,20,25,50,75,100,150,200,250,500,750,1000,2000]
+	bias_variance_mse_graphics(40000, 20, 'KNN', noOfNeighbors)
+\end{lstlisting}
+
 \end{appendices}
 
 \newpage
