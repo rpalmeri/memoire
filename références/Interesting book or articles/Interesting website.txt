@@ -37,3 +37,5 @@ Learning to use Machine Learning Tools :
 * https://www.dataquest.io/blog/machine-learning-tutorial/
 
 * https://www.dataquest.io/blog/learning-curves-machine-learning/
+
+* https://machinelearningmastery.com/how-to-develop-a-cnn-from-scratch-for-cifar-10-photo-classification/ (23-07-2021)
